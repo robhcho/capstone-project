@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  belongs_to :occurrences
+  has_secure_password
+
+  has_many :occurrences
   has_many :event_users
   has_many :events, through: :ever_users
   has_many :group_users
@@ -16,7 +18,7 @@ class User < ApplicationRecord
     {
       id: id,
       full_name: full_name,
-      username: username      
+      username: username
     }
   end
 end
