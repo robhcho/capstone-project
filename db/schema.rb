@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111012307) do
+ActiveRecord::Schema.define(version: 20180111021326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,18 +45,19 @@ ActiveRecord::Schema.define(version: 20180111012307) do
   end
 
   create_table "occurrences", force: :cascade do |t|
-    t.string "date"
+    t.date "date"
     t.integer "start_time"
     t.integer "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "polls", force: :cascade do |t|
-    t.string "first_possible_date"
-    t.string "second_possible_date"
-    t.string "third_possible_date"
-    t.string "event_id"
+    t.date "first_possible_date"
+    t.date "second_possible_date"
+    t.date "third_possible_date"
+    t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
