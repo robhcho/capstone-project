@@ -11,4 +11,12 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :username, uniqueness: true
   # validates :password, length: { in: 6..20 }
+
+  def as_json
+    {
+      id: id,
+      full_name: full_name,
+      username: username      
+    }
+  end
 end
