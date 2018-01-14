@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180111031111) do
+ActiveRecord::Schema.define(version: 20180114204158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,11 +46,11 @@ ActiveRecord::Schema.define(version: 20180111031111) do
 
   create_table "occurrences", force: :cascade do |t|
     t.date "date"
-    t.integer "start_time"
-    t.integer "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.time "start_time"
+    t.time "end_time"
   end
 
   create_table "polls", force: :cascade do |t|
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20180111031111) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email_address"
+    t.string "email"
   end
 
   create_table "votes", force: :cascade do |t|

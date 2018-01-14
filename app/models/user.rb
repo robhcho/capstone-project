@@ -18,7 +18,8 @@ class User < ApplicationRecord
     {
       id: id,
       full_name: full_name,
-      username: username
+      username: username,
+      email: email
     }
   end
 end
