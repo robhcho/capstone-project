@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   
   post '/users' => 'users#create'
 
+  get '/groups' => 'groups#index'
+  get '/groups' => 'groups#show'
   post '/groups' => 'groups#create'
 
   get '/user_calendar_events' => 'user_calendar_events#index'
