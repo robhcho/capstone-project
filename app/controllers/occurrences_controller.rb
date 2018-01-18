@@ -9,10 +9,10 @@ class OccurrencesController < ApplicationController
   end
 
   def create
-    occurrence = Occurrence.new(
-      date: params[:date],
-      start_time: params[:start_time],
-      end_time: params[:start_time]
+    # occurrence = Occurrence.new(
+      # date: Date.strptime(params[:date], '%Y-%b-%d'),
+      # start_time: Time.strptime(params[:start_time], "%l:%M %p"),
+      # end_time: Time.strptime(params[:start_time], "%l:%M %p")
       )
     occurrence.save
     render json: occurrence.as_json

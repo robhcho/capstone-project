@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :occurrences
+  has_many :user_calendar_events
   has_many :event_users
   has_many :events, through: :ever_users
   has_many :group_users
