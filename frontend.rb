@@ -9,6 +9,8 @@ while true
   p '[2] Log in'
   p '[3] Log out'
   p '[4] Create a group'
+  p '[4b] Join a group'
+  p '[4c] Leave a group'
   p '[5] See all your groups'
   p '[6] Add an existing calendar event'
   p '[7] See all your events'
@@ -22,7 +24,7 @@ while true
     p 'Enter your full name'
     the_params[:full_name] = gets.chomp
     p 'Enter your email address'
-    the_params[:email_address] = gets.chomp
+    the_params[:email] = gets.chomp
     p 'Create a Username'
     the_params[:username] = gets.chomp
     p 'Create a Password'
@@ -52,10 +54,22 @@ while true
     Unirest.clear_default_headers()
     p jwt
   elsif user_input == '4'
+    the_params = {}
     p 'Enter the name of your group'
     the_params[:group_title] = gets.chomp
     response = Unirest.post("#{base_url}/groups", parameters: the_params)
     pp response.body
+  elsif user_input == '4b'
+    the_params = {}
+    p 'Enter the id of the group you would like to join'
+    the_params[:group_id] = gets.chomp
+    response = Unirest.post("#{base_url}/group_users", parameters: the_params)
+    pp response.body
+  elsif user_input == '4c'
+    the_params = {}
+    p 'Enter the id of the group you would like to leave'
+    the_params[:group_id] = gets.chomp
+    p 'You have left the group'
   elsif user_input == '5'
     response = Unirest.get("#{base_url}/groups")
     pp response.body
@@ -80,13 +94,13 @@ while true
     response = Unirest.get("#{base_url}/user_calendar_events/#{input_event_id}")
     calendar_event = response.body
     the_params = {}
-    p "Enter the new title of the event. It is currently #{calendar_event[:event_title]}"
+    p "Enter the new title of the event. It is currently #{calendar_event['event_title']}"
     the_params[:event_title] = gets.chomp
-    p "Enter the new title of the event. It is currently #{calendar_event[:date]}"
+    p "Enter the new title of the event. It is currently #{calendar_event['date']}"
     the_params[:date] = gets.chomp
-    p "Enter the new title of the event. It is currently #{calendar_event[:start_time]}"
+    p "Enter the new title of the event. It is currently #{calendar_event['start_time']}"
     the_params[:start_time] = gets.chomp
-    p "Enter the new title of the event. It is currently #{calendar_event[:end_time]}"
+    p "Enter the new title of the event. It is currently #{calendar_event['end_time']}"
     the_params[:end_time] = gets.chomp
     response = Unirest.patch("#{base_url}/user_calendar_events/#{input_event_id}", parameters: the_params)
     pp response.body

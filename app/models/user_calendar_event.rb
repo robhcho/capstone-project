@@ -3,6 +3,7 @@ class UserCalendarEvent < ApplicationRecord
 
   def as_json
     {
+      id: id,
       event_title: event_title,
       date: date,
       start_time: start_time,

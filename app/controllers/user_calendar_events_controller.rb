@@ -3,18 +3,14 @@ class UserCalendarEventsController < ApplicationController
   def index
     if current_user
       calendar_events = UserCalendarEvent.all
-      render json: {
-        event_id: calendar_event.id,
-        event_title: calendar_event.title,
-        date: calendar_event.date
-      }
+      render json: calendar_events.as_json
     else
       render json: []
     end
   end
 
   def show
-    calendar_event = UserCalendarEvent.find(:id)
+    calendar_event = UserCalendarEvent.find(params[:id])
     render json: calendar_event.as_json
   end
 
@@ -36,7 +32,7 @@ class UserCalendarEventsController < ApplicationController
   def update
     calendar_event_id = params[:id]
     calendar_event = UserCalendarEvent.find(calendar_event_id)
-    calendar_event.title = params[:event_title] || calendar_event.title
+    calendar_event.event_title = params[:event_title] || calendar_event.event_title
     calendar_event.date = Date.strptime(params[:date], '%m/%d/%Y') || calendar_event.date
     calendar_event.start_time = Time.strptime(params[:start_time], '%l:%M %p') || calendar_event.start_time
     calendar_event.end_time = Time.strptime(params[:end_time], '%l:%M %p') || calendar_event.end_time

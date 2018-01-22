@@ -1,13 +1,17 @@
 class GroupsUsersController < ApplicationController
+  def create
+    user_group = GroupUser.new(
+      user_id: current_user.id,
+      group_id: params[:group_id]
+    )
+    user_group.save
+    render json: user_group.as_json
+  end
   
-  # def index
-    
-  # end
+  def destroy
+    group = GroupUser.find(params[:id])
+    group.destroy
 
-  # def create
-  #   group_user = GroupUser.new(
-  #     user_id: current_user.id,
-  #     group_id: params[:group_id]
-  #     )
-  # end
+    render json: { message: 'You have left the group' }
+  end
 end
