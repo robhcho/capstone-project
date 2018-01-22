@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user
   def index
     if current_user
-      user_groups = Group.where(user_id: current_user.id)
+      user_groups = current_user.groups
       render json: user_groups.as_json
     else
       render json: []

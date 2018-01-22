@@ -66,12 +66,12 @@ while true
     response = Unirest.post("#{base_url}/group_users", parameters: the_params)
     pp response.body
   elsif user_input == '4c'
-    the_params = {}
     p 'Enter the id of the group you would like to leave'
-    the_params[:group_id] = gets.chomp
+    user_input_group_id = gets.chomp
+    response = Unirest.delete("#{base_url}/group_users/#{user_input_group_id}")
     p 'You have left the group'
   elsif user_input == '5'
-    response = Unirest.get("#{base_url}/groups")
+    response = Unirest.get("#{base_url}/group_users")
     pp response.body
   elsif user_input == '6'
     the_params = {}

@@ -19,7 +19,12 @@ class User < ApplicationRecord
       id: id,
       full_name: full_name,
       username: username,
-      email: email
+      email: email,
+      groups: groups.map { |group| group.group_title }
     }
+  end
+
+  def groups
+    Group.where(user_id: id)
   end
 end

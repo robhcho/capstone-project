@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   get '/groups' => 'groups#show'
   post '/groups' => 'groups#create'
 
-  post '/group_users' => 'groups_users#create'
-  delete '/group_users' => 'groups_users#destroy'
+  get '/group_users' => 'group_users#index'
+  post '/group_users' => 'group_users#create'
+  delete '/group_users' => 'group_users#destroy'
 
   post '/event_groups' => 'event_groups#create'
   
