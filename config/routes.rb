@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   delete '/users/:id' => 'users#destroy'
 
   get '/groups' => 'groups#index'
-  get '/groups' => 'groups#show'
+  get '/groups/:id' => 'groups#show'
   post '/groups' => 'groups#create'
 
   get '/group_users' => 'group_users#index'
