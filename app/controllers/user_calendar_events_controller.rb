@@ -33,9 +33,10 @@ class UserCalendarEventsController < ApplicationController
     calendar_event_id = params[:id]
     calendar_event = UserCalendarEvent.find(calendar_event_id)
     calendar_event.event_title = params[:event_title] || calendar_event.event_title
-    calendar_event.date = Date.strptime(params[:date], '%m/%d/%Y') || calendar_event.date
-    calendar_event.start_time = Time.strptime(params[:start_time], '%l:%M %p') || calendar_event.start_time
-    calendar_event.end_time = Time.strptime(params[:end_time], '%l:%M %p') || calendar_event.end_time
+    # calendar_event.date = Date.strptime(params[:date], '%m/%d/%Y') || calendar_event.date
+    calendar_event.date = params[:date] || calendar_event.date
+    # calendar_event.start_time = Time.strptime(params[:start_time], '%l:%M %p') || calendar_event.start_time
+    # calendar_event.end_time = Time.strptime(params[:end_time], '%l:%M %p') || calendar_event.end_time
     if calendar_event.save
       render json: calendar_event.as_json
     else
