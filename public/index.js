@@ -1,4 +1,5 @@
-/* global Vue, VueRouter, axios */
+/* global Vue, VueRouter, axios, */
+// var moment = require('moment');
 
 var HomePage = {
   template: "#home-page",
@@ -99,6 +100,7 @@ var ShowCalendarPage = {
   created: function() {
     axios.get('/user_calendar_events').then(function(response) {
       this.calendar_events = response.data;
+      console.log(this.calendar_events);
     }.bind(this));
   },
   methods: {},
@@ -139,6 +141,53 @@ var EditCalendarEventPage = {
   },
 };
 
+// var DatePicker = {
+//   template: "#date-picker-page",
+//   data: {
+//     regularDate: '',
+//     showRegularDate: false,
+//     minDateLimit: '',
+//     minDate: '',
+//     showMinDate: false,
+//     maxDateLimit: '',
+//     maxDate: '',
+//     showMaxDate: false,
+//     rangeDate: '',
+//     showRangeDate: false,
+//     specifiedDate: '',
+//     showSpecifiedDate: false,
+//     formattedDate: '',
+//     showFormattedDate: false
+//   },
+//   created: function() {},
+//   methods: {
+//     formatDate: function(date) {
+//       return moment(date).format('LL');
+//     }
+//   },
+//   computed: {}
+// };
+
+
+var GroupPage = {
+  template: "#group-page",
+  data: function() {
+    return {
+      user_groups: {},
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get('/group_users').then(function(response) {
+      this.user_groups = response.data;
+    }.bind(this));
+    console.log(this.user_groups);
+  },
+  methods: {},
+  computed: {}
+};
+
+
 var router = new VueRouter({
   routes: 
   [
@@ -148,6 +197,7 @@ var router = new VueRouter({
     { path: "/logout", component: LogoutPage },
     { path: "/user_calendar_events", component: ShowCalendarPage },
     { path: "/user_calendar_events/:id/edit", component: EditCalendarEventPage },
+    { path: "/groups/", component: GroupPage },
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
