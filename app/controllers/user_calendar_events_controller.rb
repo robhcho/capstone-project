@@ -1,12 +1,12 @@
 class UserCalendarEventsController < ApplicationController
-  before_action :authenticate_user
+  # before_action :authenticate_user
   def index
-    if current_user
+    # if current_user
       calendar_events = UserCalendarEvent.all
       render json: calendar_events.as_json
-    else
-      render json: []
-    end
+    # else
+    #   render json: []
+    # end
   end
 
   def show
@@ -17,10 +17,10 @@ class UserCalendarEventsController < ApplicationController
   def create
     calendar_event = UserCalendarEvent.new(
       user_id: current_user.id,
-      event_title: params[:event_title],
-      date: Date.strptime(params[:date], '%m/%d/%Y'),
-      start_time: Time.strptime(params[:start_time], '%l:%M %p'),
-      end_time: Time.strptime(params[:end_time], '%l:%M %p')
+      title: params[:title],
+      date: DateTime.strptime(params[:date], '%m/%d/%Y'),
+      start: DateTime.strptime(params[:start], '%l:%M %p'),
+      end_time: DateTime.strptime(params[:end_time], '%l:%M %p')
     )
     if calendar_event.save
       render json: calendar_event.as_json
@@ -32,11 +32,11 @@ class UserCalendarEventsController < ApplicationController
   def update
     calendar_event_id = params[:id]
     calendar_event = UserCalendarEvent.find(calendar_event_id)
-    calendar_event.event_title = params[:event_title] || calendar_event.event_title
-    # calendar_event.date = Date.strptime(params[:date], '%m/%d/%Y') || calendar_event.date
-    calendar_event.date = params[:date] || calendar_event.date
-    # calendar_event.start_time = Time.strptime(params[:start_time], '%l:%M %p') || calendar_event.start_time
-    # calendar_event.end_time = Time.strptime(params[:end_time], '%l:%M %p') || calendar_event.end_time
+    calendar_event.title = params[:title] || calendar_event.title
+    calendar_event.date = Date.strptime(params[:date], '%m/%d/%Y') || calendar_event.date
+    # calendar_event.date = params[:date] || calendar_event.date
+    calendar_event.start = Time.strptime(params[:start], '%l:%M %p') || calendar_event.start
+    calendar_event.end_time = Time.strptime(params[:end_time], '%l:%M %p') || calendar_event.end_time
     if calendar_event.save
       render json: calendar_event.as_json
     else

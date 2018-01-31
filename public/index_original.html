@@ -11,6 +11,32 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+
+<script src='http://momentjs.com/downloads/moment.js'></script>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css' />
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css' />
+
+<script type='text/javascript'>
+        /* global $ */
+
+        $(document).ready(function() {
+          // var date = new Date();
+          // var d = date.getDate();
+          // var m = date.getMonth();
+          // var y = date.getFullYear();
+
+          $('#calendar').fullCalendar({
+
+            header: {
+              left: 'prev,next today myCustomButton',
+              center: 'title',
+              right: 'month, agendaWeek,agendaDay'
+            },
+          });
+        });
+</script>
 </head>
 <body>
   <div id="vue-app">
@@ -38,6 +64,8 @@
         </form>
       </div>
     </nav>
+
+    <div id='calendar'></div>
     <router-view></router-view>
 
   </div>

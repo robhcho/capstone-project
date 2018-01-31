@@ -1,6 +1,7 @@
 /* global Vue, VueRouter, axios, */
 // var moment = require('moment');
 
+
 var HomePage = {
   template: "#home-page",
   data: function() {
@@ -141,6 +142,37 @@ var EditCalendarEventPage = {
   },
 };
 
+var createEvent = {
+  template: "#create-event-page",
+  data: function() {
+    return {
+      eventTitle: "",
+      eventDescription: "",
+      eventDuration: "",
+      errors: []
+    };
+  },
+  methods: {
+    createEvent: function() {
+      var params = {
+        event_title: this.eventTitle,
+        event_description: this.eventDescription,
+        event_duration: this.eventDuration,
+      };
+      axios
+        .post("/events", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
 // var DatePicker = {
 //   template: "#date-picker-page",
 //   data: {
@@ -187,6 +219,33 @@ var GroupPage = {
   computed: {}
 };
 
+var NewGroupPage = {
+  template: "#create-group-page",
+  data: function() {
+    return {
+      groupTitle: "",
+      errors: []
+    };
+  },
+  methods: {
+    createGroup: function() {
+      var params = {
+        group_title: this.groupTitle,
+      };
+      axios
+        .post("/groups", params)
+        .then(function(response) {
+          router.push("/groups");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
+    }
+  }
+};
+
 
 var router = new VueRouter({
   routes: 
@@ -197,7 +256,9 @@ var router = new VueRouter({
     { path: "/logout", component: LogoutPage },
     { path: "/user_calendar_events", component: ShowCalendarPage },
     { path: "/user_calendar_events/:id/edit", component: EditCalendarEventPage },
+    { path: "/events/new", component: createEvent },
     { path: "/groups/", component: GroupPage },
+    { path: "/groups/new", component: NewGroupPage },
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };

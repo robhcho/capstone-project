@@ -12,7 +12,7 @@ while true
   p '[4b] Join a group'
   p '[4c] Leave a group'
   p '[5] See all your groups'
-  p '[6] Add an existing calendar event'
+  p '[6] Add a calendar event'
   p '[7] See all your events'
   p '[8] Edit one of your events'
   p '[9] Remove an event'
@@ -76,11 +76,11 @@ while true
   elsif user_input == '6'
     the_params = {}
     p 'Enter the event title'
-    the_params[:event_title] = gets.chomp
+    the_params[:title] = gets.chomp
     p 'Enter the date of your event (mm/dd/yy)'
     the_params[:date] = gets.chomp
     p 'Enter the start time of the event (00:00 AM)'
-    the_params[:start_time] = gets.chomp
+    the_params[:time] = gets.chomp
     p 'Enter the end time of the event in (00:00 AM)'
     the_params[:end_time] = gets.chomp
     response = Unirest.post("#{base_url}/user_calendar_events", parameters: the_params)

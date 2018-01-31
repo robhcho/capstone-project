@@ -93,9 +93,10 @@
                 <ul>
                   <li class="active"><a href="/">Home</a></li>
                   <li class="has-dropdown">
-                    <a href="/#/blog.html">My Calendar</a>
+                    <a href="calendar.html">My Calendar</a>
                     <ul class="dropdown">
                       <li><a href="#">Add Event</a></li>
+                      <li><a href="/#/user_calendar_events/:id/edit">Edit Event</a></li>
                       <li><a href="#">View Event</a></li>
                     </ul>
                   <li class="has-dropdown">
@@ -106,11 +107,11 @@
                     </ul>
                   </li>
                   <li class="has-dropdown">
-                    <a href="blog.html">My Account</a>
+                    <a href="#">My Account</a>
                     <ul class="dropdown">
                       <li><a href="/#/login">Log In</a></li>
                       <li><a href="/#/signup">Sign Up</a></li>
-                      <li><a href="/#/signup">Log Out</a></li>
+                      <li><a href="/#/logout">Log Out</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -221,12 +222,15 @@
 
 
 <template id="show-calendar-page">
-  <!-- <div id='calendar'></div> -->
   <div class="vue-component">
-    <div class="row">
-      <div v-for="calendar_event in calendar_events">
-        {{ calendar_events }}
-      </div>
+    <!-- <div class="row"> -->
+      <!-- <div v-for="calendar_event in calendar_events"> -->
+        <p>Event Title: {{calendar_events[0].event_title}}</p>
+        <p>Event Date: {{calendar_events[0].date}}</p>
+        <p>Start Time:{{calendar_events[0].start_time}}</p>
+        <p>End Time: {{calendar_events[0].end_time}}</p>
+        <!-- <p>{{ calendar_events[1] }}</p> -->
+      <!-- </div> -->
 
   </div>
 </template>
