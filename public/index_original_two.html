@@ -94,20 +94,15 @@
         selectHelper: true,
         editable: true,
         eventLimit: true,
+        theme: true,
         // navLinkDayClick: function(date, jsEvent) {
         //  console.log('day', date.format());
         //  console.log('coords', jsEvent.pageX, jsEvent.pageY);
         // },
-        eventSources: [
-          {
-            url: '/user_calendar_events' ,
-            color: 'blue',
-            textColor: 'white'
-          }
-        ],
+        events: '/user_calendar_events',
         dayClick: function(date, jsEvent, view) {
           
-        }
+        },
       });
     });
   </script>

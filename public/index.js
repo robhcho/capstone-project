@@ -108,6 +108,24 @@ var ShowCalendarPage = {
   computed: {}
 };
 
+var ShowEventPage = {
+  template: "#show-event-page",
+  data: function() {
+    return {
+      calendar_event: {},
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get('/user_calendar_events' + this.$route.params.id).then(function(response) {
+      this.calendar_event = response.data;
+      console.log(this.calendar_event);
+    }.bind(this));
+  },
+  methods: {},
+  computed: {}
+};
+
 var EditCalendarEventPage = {
   template: "#edit-calendar-page",
   data: function() {
@@ -256,6 +274,7 @@ var router = new VueRouter({
     { path: "/logout", component: LogoutPage },
     { path: "/user_calendar_events", component: ShowCalendarPage },
     { path: "/user_calendar_events/:id/edit", component: EditCalendarEventPage },
+    { path: "/user_calendar_events/:id", component: ShowEventPage },
     { path: "/events/new", component: createEvent },
     { path: "/groups/", component: GroupPage },
     { path: "/groups/new", component: NewGroupPage },

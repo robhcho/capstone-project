@@ -84,21 +84,40 @@
 			// var y = date.getFullYear();
 
 			$('.calendar').fullCalendar({
+				// header: {
+				// 	left: 'prev, next today',
+				// 	center: 'title',
+				// 	right: 'month,agendaWeek,agendaDay'
+				// },
+				navLinks: true,
+				selectable: true,
+				selectHelper: true,
+				editable: true,
+				eventLimit: true,
+				// navLinkDayClick: function(date, jsEvent) {
+				// 	console.log('day', date.format());
+				// 	console.log('coords', jsEvent.pageX, jsEvent.pageY);
+				// },
 				eventSources: [
 					{
 						url: '/user_calendar_events' ,
 						color: 'blue',
 						textColor: 'white'
 					}
-				]
+				],
+				dayClick: function(date, jsEvent, view) {
+					
+				}
 			});
 		});
 	</script>
 
 	<style>
 		.calendar {
-			padding-left: 20px;
-			padding-right: 20px;
+			/*padding-left: 15px;
+			padding-right: 15px;*/
+			max-width: 900px;
+			margin: 0 auto;
 
 		}
 	</style>
@@ -125,7 +144,7 @@
                     <ul class="dropdown">
                       <li><a href="#">Add Event</a></li>
                       <li><a href="/#/user_calendar_events/:id/edit">Edit Event</a></li>
-                      <li><a href="#">View Event</a></li>
+                      <li><a href="/#/user_calendar_events/:id">View Event</a></li>
                       <li><a href="/#/events/new">Create Event</a></li>
                     </ul>
                   <li class="has-dropdown">
@@ -151,8 +170,8 @@
         </div>
       </nav>
 
-     <div class='calendar'></div>
-
+     
+      <div class='calendar'></div>
       <router-view></router-view>
 
 			<div class="container-wrap">
@@ -306,12 +325,22 @@
   <div class="vue-component">
     <div class="row">
       <div v-for="calendar_event in calendar_events">
-        <p>Event Title: {{calendar_events[0].event_title}}</p>
-        <p>Event Date: {{calendar_events[0].date}}</p>
-        <p>Start Time:{{calendar_events[0].start_time}}</p>
-        <p>End Time: {{calendar_events[0].end_time}}</p>
-        <!-- <p>{{ calendar_events[1] }}</p> -->
+        <p>Event Title: {{calendar_event.title}}</p>
+        <p>Event Date: {{calendar_event.date}}</p>
+        <p>Start Time:{{calendar_event.start}}</p>
+        <p>End Time: {{calendar_event.end_time}}</p>
       </div>
+    </div>
+  </div>
+</template>
+
+<template id="show-event-page">
+  <div class="vue-component">
+    <div class="row">
+        <p>Event Title: {{calendar_event.title}}</p>
+        <p>Event Date: {{calendar_event.date}}</p>
+        <p>Start Time:{{calendar_event.start}}</p>
+        <p>End Time: {{calendar_event.end_time}}</p>
     </div>
   </div>
 </template>
