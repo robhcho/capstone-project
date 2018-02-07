@@ -78,10 +78,6 @@
     /* global $ */
 
     $(document).ready(function() {
-      // var date = new Date();
-      // var d = date.getDate();
-      // var m = date.getMonth();
-      // var y = date.getFullYear();
 
       $('.calendar').fullCalendar({
         // header: {
@@ -99,9 +95,12 @@
         //  console.log('day', date.format());
         //  console.log('coords', jsEvent.pageX, jsEvent.pageY);
         // },
-        events: '/user_calendar_events',
+        eventSources: [
+          {
+            url: '/user_calendar_events'
+          }
+        ],
         dayClick: function(date, jsEvent, view) {
-          
         },
       });
     });
@@ -109,11 +108,8 @@
 
   <style>
     .calendar {
-      /*padding-left: 15px;
-      padding-right: 15px;*/
       max-width: 900px;
       margin: 0 auto;
-
     }
   </style>
 

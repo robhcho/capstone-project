@@ -1,26 +1,27 @@
 class EventsController < ApplicationController
-  def index
-    events = Event.all
+  # def index
+  #   events = Group.find(params[:id]).events
+  #   render json: events.as_json
+  # end
+
+  def show
+    events = Group.find(params[:id]).events
     render json: events.as_json
   end
 
-  def show
-    event = Event.find(params[:id])
-    render json: event.as_json
-  end
-
   def create
-    event = Event.new(
+    group_event = Event.new(
       user_id: current_user.id,
-      event_title: params[:event_title],
-      event_duration: params[:event_duration],
-      event_description: params[:event_description],
-      group_id: params[group_id]
+      group_id: params[:id],
+      title: params[:title],
+      date: params[:date],
+      # start: params[:start],
+      end_time: params[:end_time]
     )
-    if event.save
-      render json: event.as_json
+    if group_event.save
+      render json: group_event.as_json
     else
-      render json: { errors: event.errors.full_messages }
+      render json: { errors: group_event.errors.full_messages }
     end
   end
 end

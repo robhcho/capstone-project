@@ -12,6 +12,7 @@ while true
   p '[4b] Join a group'
   p '[4c] Leave a group'
   p '[5] See all your groups'
+  p '[5b] See group members'
   p '[6] Add a calendar event'
   p '[7] See all your events'
   p '[8] Edit one of your events'
@@ -72,6 +73,11 @@ while true
     p 'You have left the group'
   elsif user_input == '5'
     response = Unirest.get("#{base_url}/group_users")
+    pp response.body
+  elsif user_input == '5b'
+    'enter group id'
+    group_id_input = gets.chomp
+    response = Unirest.get("#{base_url}/group_users/#{group_id_input}")
     pp response.body
   elsif user_input == '6'
     the_params = {}

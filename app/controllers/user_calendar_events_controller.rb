@@ -1,8 +1,10 @@
 class UserCalendarEventsController < ApplicationController
   # before_action :authenticate_user
+  # before_filter :authenticate_user!, except: [:new, :create]
   def index
     # if current_user
-      calendar_events = UserCalendarEvent.all
+      calendar_events = current_user.user_calendar_events
+      # p current_user
       render json: calendar_events.as_json
     # else
     #   render json: []
@@ -10,17 +12,17 @@ class UserCalendarEventsController < ApplicationController
   end
 
   def show
-    calendar_event = UserCalendarEvent.find(params[:id])
-    render json: calendar_event.as_json
+      user_calendar = UserCalendarEvent.where(user_id: params[:id])
+      render json: user_calendar.as_json
   end
 
   def create
     calendar_event = UserCalendarEvent.new(
       user_id: current_user.id,
       title: params[:title],
-      date: DateTime.strptime(params[:date], '%m/%d/%Y'),
-      start: DateTime.strptime(params[:start], '%l:%M %p'),
-      end_time: DateTime.strptime(params[:end_time], '%l:%M %p')
+      date: params[:date],
+      # start: params[:start],
+      end_time: params[:end_time]
     )
     if calendar_event.save
       render json: calendar_event.as_json

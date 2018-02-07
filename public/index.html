@@ -72,53 +72,183 @@
 	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.js'></script>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css' />
-	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css' />
+	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.css' media='print' />
+
 
 	<script type='text/javascript'>
 		/* global $ */
 
 		$(document).ready(function() {
-			// var date = new Date();
-			// var d = date.getDate();
-			// var m = date.getMonth();
-			// var y = date.getFullYear();
 
 			$('.calendar').fullCalendar({
-				// header: {
-				// 	left: 'prev, next today',
-				// 	center: 'title',
-				// 	right: 'month,agendaWeek,agendaDay'
-				// },
-				navLinks: true,
+				header: {
+					left: 'prev, next today, addEvent',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
 				selectable: true,
 				selectHelper: true,
 				editable: true,
 				eventLimit: true,
-				// navLinkDayClick: function(date, jsEvent) {
-				// 	console.log('day', date.format());
-				// 	console.log('coords', jsEvent.pageX, jsEvent.pageY);
-				// },
+				eventOverlap: true,
+				weekMode: 'liquid',
+				navLinks: true,
+				timezone: 'local',
 				eventSources: [
 					{
-						url: '/user_calendar_events' ,
-						color: 'blue',
-						textColor: 'white'
-					}
+						url: '/user_calendar_events',
+						color: '#3C8867',
+						textColor: 'white',
+						headers: {
+							"Authorization": "Bearer " + localStorage.getItem("jwt")
+						}
+					},
 				],
 				dayClick: function(date, jsEvent, view) {
-					
-				}
+					if (view.name !== 'month') {
+						return;
+					}
+
+					if (view.name === 'month') {
+						$('.calendar').fullCalendar('changeView', 'agendaDay');
+						$('.calendar').fullCalendar('gotoDate', date);
+					}
+				},
+
+				// select: function(start, end) {
+				// 	if ((start._d.toString().substring(16,24) !== "20:00:00") && (end._d.toString().substring(16,24) !== "20:00:00")) {
+				// 		time = [start._d, end._d]
+				// 	}
+				// }
+
 			});
 		});
 	</script>
 
+<!-- 	<script type='text/javascript'>
+		/* global $ */
+
+		$(document).ready(function() {
+			var date = new Date();
+			var d = date.getDate();
+			var m = date.getMonth();
+			var y = date.getFullYear();
+			var time = 0;
+
+			$('.calendar2').fullCalendar({
+				header: {
+					left: 'prev, next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
+				selectable: true,
+				selectHelper: true,
+				editable: true,
+				eventLimit: true,
+				eventOverlap: true,
+				weekMode: 'liquid',
+				navLinks: true,
+				timezone: 'local',
+				eventSources: [
+					{
+						// params: window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi),
+						url:"/group_user_calendar/" + window.location.href.split("/")[5] ,
+						// url:'/events' ,
+						color: '3C8867',
+						textColor: 'white',
+						// headers: {
+						// 	"Authorization": "Bearer " + localStorage.getItem("jwt")
+						// }
+					},
+				],
+				dayClick: function(date, jsEvent, view) {
+					if (view.name !== 'month') {
+						return;
+					}
+
+					if (view.name === 'month') {
+						$('.calendar').fullCalendar('changeView', 'agendaDay');
+						$('.calendar').fullCalendar('gotoDate', date);
+					}
+				},
+
+				// select: function(start, end) {
+				// 	if ((start._d.toString().substring(16,24) !== "20:00:00") && (end._d.toString().substring(16,24) !== "20:00:00")) {
+				// 		time = [start._d, end._d]
+				// 	}
+				// }
+
+			});
+		});
+	</script> -->
+
+		<script type='text/javascript'>
+		/* global $ */
+
+		$(document).ready(function() {
+
+			$('.calendar2').fullCalendar({
+				header: {
+					left: 'prev, next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
+				selectable: true,
+				selectHelper: true,
+				editable: true,
+				eventLimit: true,
+				eventOverlap: true,
+				weekMode: 'liquid',
+				navLinks: true,
+				timezone: 'local',
+				eventSources: [
+					{
+						url:'/group_user_calendar/' + window.location.href.split("/")[5],
+						color: '#3C8867',
+						textColor: 'white',
+						// headers: {
+						// 	"Authorization": "Bearer " + localStorage.getItem("jwt")
+						// }
+					},
+					
+					{
+						url: "/events/" + window.location.href.split("/")[5],
+						color:'#c91e43',
+						textColor: 'white'
+					}
+				],
+				dayClick: function(date, jsEvent, view) {
+					if (view.name !== 'month') {
+						return;
+					}
+
+					if (view.name === 'month') {
+						$('.calendar').fullCalendar('changeView', 'agendaDay');
+						$('.calendar').fullCalendar('gotoDate', date);
+					}
+				},
+
+			});
+		});
+	</script>
+	
 	<style>
 		.calendar {
 			/*padding-left: 15px;
 			padding-right: 15px;*/
 			max-width: 900px;
 			margin: 0 auto;
+		}
 
+		.calendar2 {
+			/*padding-left: 15px;
+			padding-right: 15px;*/
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+		.fh5co-nav {
+			margin: 0 auto;
 		}
 	</style>
 
@@ -138,11 +268,11 @@
               </div>
               <div class="col-xs-10 text-right menu-1">
                 <ul>
-                  <li class="active"><a href="/">Home</a></li>
+                  <li class="inactive"><a href="/">Home</a></li>
                   <li class="has-dropdown">
                     <a href="/#/user_calendar_events">My Calendar</a>
                     <ul class="dropdown">
-                      <li><a href="#">Add Event</a></li>
+                      <li><a href="/#/user_calendar_events/new">Add Event</a></li>
                       <li><a href="/#/user_calendar_events/:id/edit">Edit Event</a></li>
                       <li><a href="/#/user_calendar_events/:id">View Event</a></li>
                       <li><a href="/#/events/new">Create Event</a></li>
@@ -150,7 +280,7 @@
                   <li class="has-dropdown">
                     <a href="/#/groups">My Groups</a>
                     <ul class="dropdown">
-                      <li><a href="#">Add New Group</a></li>
+                      <li><a href="/#/groups/new">Add New Group</a></li>
                       <li><a href="#">Join Group</a></li>
                     </ul>
                   </li>
@@ -170,8 +300,7 @@
         </div>
       </nav>
 
-     
-      <div class='calendar'></div>
+	    <!-- <div class='calendar'></div> -->
       <router-view></router-view>
 
 			<div class="container-wrap">
@@ -299,7 +428,8 @@
   <div class="vue-component">
 
     <div class="container">
-      <h1>Login</h1>
+      <h3>Log in</h3> 
+      <h5> or <a href="/#/signup">Sign Up</a></h5>
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
@@ -323,15 +453,34 @@
 
 <template id="show-calendar-page">
   <div class="vue-component">
-    <div class="row">
-      <div v-for="calendar_event in calendar_events">
-        <p>Event Title: {{calendar_event.title}}</p>
-        <p>Event Date: {{calendar_event.date}}</p>
-        <p>Start Time:{{calendar_event.start}}</p>
-        <p>End Time: {{calendar_event.end_time}}</p>
-      </div>
-    </div>
-  </div>
+	<div class='calendar'></div>
+	    <div class="row">
+				<div class="col-md-4 text-center animate-box">
+					<a href="/#/user_calendar_events/new" class="work" style="background-image: url(images/add-event.jpg);">
+						<div class="desc">
+							<h2> + </h2>
+							<span>Add Event</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 text-center animate-box">
+					<a href="#" class="work" style="background-image: url(images/remove-event.jpg);">
+						<div class="desc">
+							<h1> - </h1>
+							<span>Remove Event</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 text-center animate-box">
+					<a href="#" class="work" style="background-image: url(images/edit-event.jpg);">
+						<div class="desc">
+							<h2> ^ </h2>
+							<span>Edit Event</span>
+						</div>
+					</a>
+				</div>
+			</div>
+	</div>
 </template>
 
 <template id="show-event-page">
@@ -345,9 +494,35 @@
   </div>
 </template>
 
-<template id="edit-calendar-page">
+<template id="add-event-page">
   <div class="vue-component">
+		<div class='calendar'></div>
+		<div class="row">
+	    <div class="container">
+	      <h1>Add Event</h1>
+	      <ul>
+	        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+	      </ul>
+	      <div class="form-group">
+	        <label>Event Title: </label> 
+	        <input type="text" class="form-control" v-model="eventTitle">
+	      </div>
+	      <div class="form-group">
+	        <label>Date: </label>
+	        <input type="datetime-local" class="form-control" v-model="eventDate">
+	      </div>
+	      <div class="form-group">
+	        <label>End Time: </label>
+	        <input type="datetime-local" class="form-control" v-model="eventEndTime">
+	      </div>
+	      <button class="btn btn-primary" v-on:click="addEvent()">Add Event</button>
+	    </div>
+	  </div>
+  </div>
+</template>
 
+<template id="edit-event-page">
+  <div class="vue-component">
     <div class="container">
       <h1>Edit Event</h1>
       <ul>
@@ -355,7 +530,7 @@
       </ul>
       <div class="form-group">
         <label>Event Title:</label> 
-        <input type="text" class="form-control" v-model="calendarEvent.eventTitle">
+        <input type="text" class="form-control" v-model="calendarEvent.title">
       </div>
       <div class="form-group">
         <label>Date:</label>
@@ -363,11 +538,11 @@
       </div>
       <div class="form-group">
         <label>Start Time:</label>
-        <input type="time" class="form-control" v-model="calendarEvent.startTime">
+        <input type="time" class="form-control" v-model="calendarEvent.start">
       </div>
       <div class="form-group">
         <label>End Time:</label>
-        <input type="time" class="form-control" v-model="calendarEvent.endTime">
+        <input type="time" class="form-control" v-model="calendarEvent.end_time">
       </div>
       <button class="btn btn-primary" v-on:click="editCalendarEvent()">Edit</button>
     </div>
@@ -375,14 +550,44 @@
   </div>
 </template>
 
-<template id="group-page">
-  <div class="container">
-  	<p>Group 1: {{user_groups[0].group_title}}</p>
-  	<p>Group 2: {{user_groups[1].group_title}}</p>
-  </div>
+<template id="groups-page">
+		<div class="row">
+			<div v-for="user_group in user_groups">
+				<div class="col-md-4 text-center">
+				<a v-bind:href="'/#/group_users/' + user_group.group_id" class="work" style="background-image: url(images/portfolio-1.jpg);">
+					<div class="desc">
+						<h3>{{user_group.group_title}}</h3>
+						<span>see members</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
 </template>
 
-<template id="create-group-page">
+<template id="show-group-page">
+	<div class="vue-component">
+	<div class='calendar2'></div>
+	<div class="row">
+		<div v-for="user in user_group" class="col-md-4 text-center">
+          <div class="fh5co-blog animate-box">
+            <!-- <a href="#" class="blog-bg" style="background-image: url(images/blog-1.jpg);"></a> -->
+            <div class="blog-text">
+              <span class="posted_on">Group Member: </span>
+              <h3>{{user.full_name}}</h3>
+            </div> 
+          </div>
+        </div>
+				<!-- <div class="desc">
+					<h3>{{user.full_name}}</h3>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+</template>
+
+<template id="add-group-page">
   <div class="vue-component">
 
     <div class="container">
@@ -392,9 +597,9 @@
       </ul>
       <div class="form-group">
         <label>Group Title: </label> 
-        <input type="text" class="form-control" v-model="group_title">
+        <input type="text" class="form-control" v-model="groupTitle">
       </div>
-      <button class="btn btn-primary" v-on:click="createGroup()">Create Group</button>
+      <button class="btn btn-primary" v-on:click="createGroup()">Add Group</button>
     </div>
 
   </div>
@@ -410,17 +615,13 @@
       </ul>
       <div class="form-group">
         <label>Event Title: </label> 
-        <input type="text" class="form-control" v-model="eventTitle">
+        <input type="text" class="form-control" v-model="event_title">
       </div>
       <div class="form-group">
-        <label>Description: </label>
-        <input type="text" class="form-control" v-model="eventDescription">
+        <label>Date: </label>
+        <input type="date" class="form-control" v-model="event_date">
       </div>
-      <div class="form-group">
-        <label>Duration: </label>
-        <input type="time" class="form-control" v-model="eventDuration">
-      </div>
-      <button class="btn btn-primary" v-on:click="signUp()">Sign Up</button>
+      <button class="btn btn-primary" v-on:click="createEvent()">Add Event</button>
     </div>
 
   </div>

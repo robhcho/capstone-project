@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   has_many :event_groups
   has_many :events, through: :event_groups
 
-  def user
-    User.find_by(id: user_id)
-  end
+  # def user
+  #   User.find_by(id: user_id)
+  # end
 end

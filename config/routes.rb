@@ -9,14 +9,18 @@ Rails.application.routes.draw do
   post '/groups' => 'groupusers#create'
 
   get '/group_users' => 'group_users#index'
+  get '/group_users/:id' => 'group_users#show'
   post '/group_users' => 'group_users#create'
   delete '/group_users' => 'group_users#destroy'
+  
+  get '/group_user_calendar/:id' => 'group_users#group_calendar'
+
 
   post '/event_groups' => 'event_groups#create'
   
 
   get '/user_calendar_events' => 'user_calendar_events#index'
-  get '/user_calendar_events/:id' => 'user_calendar_events#show'
+  # get '/user_calendar_events/:id' => 'user_calendar_events#show'
   post '/user_calendar_events/' => 'user_calendar_events#create'
   patch '/user_calendar_events/:id' => 'user_calendar_events#update'
   delete '/user_calendar_events/:id' => 'user_calendar_events#destroy'
