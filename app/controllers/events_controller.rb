@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
   def create
     group_event = Event.new(
-      user_id: current_user.id,
+      # user_id: current_user.id,
       group_id: params[:id],
       title: params[:title],
       date: params[:date],

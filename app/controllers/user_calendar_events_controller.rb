@@ -4,6 +4,7 @@ class UserCalendarEventsController < ApplicationController
   def index
     # if current_user
       calendar_events = current_user.user_calendar_events
+      # calendar_events = UserCalendarEvent.where(user_id:4)
       # p current_user
       render json: calendar_events.as_json
     # else
@@ -21,7 +22,7 @@ class UserCalendarEventsController < ApplicationController
       user_id: current_user.id,
       title: params[:title],
       date: params[:date],
-      # start: params[:start],
+      start: params[:start],
       end_time: params[:end_time]
     )
     if calendar_event.save

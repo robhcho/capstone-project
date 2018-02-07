@@ -93,7 +93,7 @@
 				eventOverlap: true,
 				weekMode: 'liquid',
 				navLinks: true,
-				timezone: 'local',
+				timezone: 'EST',
 				eventSources: [
 					{
 						url: '/user_calendar_events',
@@ -103,6 +103,11 @@
 							"Authorization": "Bearer " + localStorage.getItem("jwt")
 						}
 					},
+					{
+						url: "/events/" + window.location.href.split("/")[5],
+						color:'#c91e43',
+						textColor: 'white'
+					}
 				],
 				dayClick: function(date, jsEvent, view) {
 					if (view.name !== 'month') {
@@ -113,14 +118,7 @@
 						$('.calendar').fullCalendar('changeView', 'agendaDay');
 						$('.calendar').fullCalendar('gotoDate', date);
 					}
-				},
-
-				// select: function(start, end) {
-				// 	if ((start._d.toString().substring(16,24) !== "20:00:00") && (end._d.toString().substring(16,24) !== "20:00:00")) {
-				// 		time = [start._d, end._d]
-				// 	}
-				// }
-
+				}
 			});
 		});
 	</script>
@@ -203,16 +201,14 @@
 				timezone: 'local',
 				eventSources: [
 					{
-						url:'/group_user_calendar/' + window.location.href.split("/")[5],
+						// url: '/group_user_calendar/' + window.location.href.split("/")[5],
+						// url: '/group_user_calendar/' + window.location.href.split("/")[5],
 						color: '#3C8867',
-						textColor: 'white',
-						// headers: {
-						// 	"Authorization": "Bearer " + localStorage.getItem("jwt")
-						// }
+						textColor: 'white'
 					},
 					
 					{
-						url: "/events/" + window.location.href.split("/")[5],
+						url:'/events/' + window.location.href.split("/")[5],
 						color:'#c91e43',
 						textColor: 'white'
 					}
@@ -234,15 +230,11 @@
 	
 	<style>
 		.calendar {
-			/*padding-left: 15px;
-			padding-right: 15px;*/
 			max-width: 900px;
 			margin: 0 auto;
 		}
 
 		.calendar2 {
-			/*padding-left: 15px;
-			padding-right: 15px;*/
 			max-width: 900px;
 			margin: 0 auto;
 		}
@@ -311,24 +303,13 @@
 							<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
 						</div>
 						<div class="col-md-3 col-md-push-1">
-							<h4>Latest Posts</h4>
+							<h4></h4>
 							<ul class="fh5co-footer-links">
-								<li><a href="#">Amazing Templates</a></li>
-								<li><a href="#">100+ Free Download Templates</a></li>
-								<li><a href="#">Neat is now available</a></li>
-								<li><a href="#">Download 1000+ icons</a></li>
-								<li><a href="#">Big Deal for this month of March, Join Us here</a></li>
-							</ul>
-						</div>
-
-						<div class="col-md-3 col-md-push-1">
-							<h4>Links</h4>
-							<ul class="fh5co-footer-links">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Work</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">About us</a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
 							</ul>
 						</div>
 
@@ -342,24 +323,17 @@
 							</ul>
 						</div>
 
+						<div class="col-md-3 col-md-push-1">
+							<h4>Links</h4>
+							<ul class="fh5co-footer-links">
+								<li><a href="/#/">Home</a></li>
+								<li><a href="/#/">My Calendar</a></li>
+								<li><a href="#">My Groups</a></li>
+							</ul>
+						</div>
+
 					</div>
 
-					<div class="row copyright">
-						<div class="col-md-12 text-center">
-							<p>
-								<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
-								<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Available at <a href="http://themewagon.com/" target="_blank">Themewagon</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
-							</p>
-							<p>
-								<ul class="fh5co-social-icons">
-									<li><a href="#"><i class="icon-twitter"></i></a></li>
-									<li><a href="#"><i class="icon-facebook"></i></a></li>
-									<li><a href="#"><i class="icon-linkedin"></i></a></li>
-									<li><a href="#"><i class="icon-dribbble"></i></a></li>
-								</ul>
-							</p>
-						</div>
-					</div>
 				</footer>
 			</div><!-- END container-wrap -->
 			</div>
@@ -390,8 +364,7 @@
 </html>
 
 <template id="home-page">
-  <div class="container">
-  </div>
+  
 </template>
 
 <template id="signup-page">
@@ -426,8 +399,40 @@
 
 <template id="login-page">
   <div class="vue-component">
-
-    <div class="container">
+  	<aside id="fh5co-hero">
+          <div class="flexslider">
+            <ul class="slides">
+              <li style="background-image: url(images/img_bg_1.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-6 col-md-offset-3 col-md-pull-3 slider-text">
+                      <div class="slider-text-inner">
+        	        	    <div class="container">
+										      <h3>Log in</h3> 
+										      <h5> or <a href="/#/signup">Sign Up</a></h5>
+										      <ul>
+										        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+										      </ul>
+										      <div class="form-group">
+										        <label>Email:</label>
+										        <input type="email" class="form-control" v-model="email">
+										      </div>
+										      <div class="form-group">
+										        <label>Password:</label>
+										        <input type="password" class="form-control" v-model="password">
+										      </div>
+										      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+										    </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+<!--     <div class="container">
       <h3>Log in</h3> 
       <h5> or <a href="/#/signup">Sign Up</a></h5>
       <ul>
@@ -442,8 +447,7 @@
         <input type="password" class="form-control" v-model="password">
       </div>
       <button class="btn btn-primary" v-on:click="submit()">Submit</button>
-    </div>
-
+    </div> -->
   </div>
 </template>
 
@@ -509,7 +513,11 @@
 	      </div>
 	      <div class="form-group">
 	        <label>Date: </label>
-	        <input type="datetime-local" class="form-control" v-model="eventDate">
+	        <input type="date" class="form-control" v-model="eventDate">
+	      </div>
+	      <div class="form-group">
+	        <label>Start Time: </label>
+	        <input type="datetime-local" class="form-control" v-model="eventStart">
 	      </div>
 	      <div class="form-group">
 	        <label>End Time: </label>
@@ -551,14 +559,14 @@
 </template>
 
 <template id="groups-page">
-		<div class="row">
-			<div v-for="user_group in user_groups">
-				<div class="col-md-4 text-center">
+	<div class="row">
+		<div v-for="user_group in user_groups">
+			<div class="col-md-4 text-center">
 				<a v-bind:href="'/#/group_users/' + user_group.group_id" class="work" style="background-image: url(images/portfolio-1.jpg);">
-					<div class="desc">
-						<h3>{{user_group.group_title}}</h3>
-						<span>see members</span>
-					</div>
+				<div class="desc">
+					<h3>{{user_group.group_title}}</h3>
+					<span>see members</span>
+				</div>
 				</a>
 			</div>
 		</div>
@@ -567,24 +575,45 @@
 
 <template id="show-group-page">
 	<div class="vue-component">
-	<div class='calendar2'></div>
-	<div class="row">
-		<div v-for="user in user_group" class="col-md-4 text-center">
+		<div class="row">
+			<div v-for="user in user_group">
+				<div class="col-md-4 text-center">
           <div class="fh5co-blog animate-box">
-            <!-- <a href="#" class="blog-bg" style="background-image: url(images/blog-1.jpg);"></a> -->
             <div class="blog-text">
               <span class="posted_on">Group Member: </span>
               <h3>{{user.full_name}}</h3>
+              <h3>{{user.email}}</h3>
             </div> 
           </div>
-        </div>
-				<!-- <div class="desc">
-					<h3>{{user.full_name}}</h3>
-				</div> -->
-			</div>
+	      </div>
+	    </div>
+		</div>
+		<div class='calendar2'></div>
+		<div class="col-md-4 text-center animate-box">
+			<a href="/#/user_calendar_events/new" class="work" style="background-image: url(images/add-event.jpg);">
+				<div class="desc">
+					<h2> + </h2>
+					<span>Add Event</span>
+				</div>
+			</a>
+		</div>
+		<div class="col-md-4 text-center animate-box">
+			<a href="#" class="work" style="background-image: url(images/remove-event.jpg);">
+				<div class="desc">
+					<h1> - </h1>
+					<span>Remove Event</span>
+				</div>
+			</a>
+		</div>
+		<div class="col-md-4 text-center animate-box">
+			<a href="#" class="work" style="background-image: url(images/edit-event.jpg);">
+				<div class="desc">
+					<h2> ^ </h2>
+					<span>Edit Event</span>
+				</div>
+			</a>
 		</div>
 	</div>
-</div>
 </template>
 
 <template id="add-group-page">

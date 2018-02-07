@@ -11,6 +11,7 @@ end
 def as_json
   {
     id: id,
+    user_id: current_user.id,
     event_title: event_title,
     event_date: event_date,
     event_duration: event_duration,

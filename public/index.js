@@ -220,7 +220,22 @@ var CreateEvent = {
             this.errors = error.response.data.errors;
           }.bind(this)
         );
-    }
+    },
+    // createGroupEvent: function() {
+    //   var params = {
+
+    //   };
+    //   axios
+    //     .post("/event_groups", params)
+    //     .then(function(response) {
+    //       router.push("/");
+    //     })
+    //     .catch(
+    //       function(error) {
+    //         this.errors = error.response.data.errors;
+    //       }.bind(this)
+    //     );
+    // }
   }
 };
 
@@ -235,10 +250,7 @@ var GroupsPage = {
   created: function() {
     axios.get('/group_users').then(function(response) {
       this.user_groups = response.data;
-      console.log(response.data);
-      // console.log(response.data.group_title);
     }.bind(this));
-    console.log(this.user_groups);
   },
   methods: {},
   computed: {}
@@ -255,10 +267,8 @@ var ShowGroupPage = {
   created: function() {
     axios.get('/group_users/' + this.$route.params.id).then(function(response) {
       this.user_group = response.data;
-      console.log(this.user_group);
 
     }.bind(this));
-    console.log(this.user_group)
   },
   methods: {},
   computed: {}
